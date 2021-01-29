@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <title>Panier</title>
+</head>
+
+<body class="container-fluid bg-dark">
+    <!-- Header du site en commun avec toutes les pages -->
+    <header class="container-fluid">
+        <h1 class="font-weight-bold p-3 text-white text-center shadow-lg"><a href="../index.html" class="text-white text-decoration-none">OriCamera</a></h1>
+        <!-- Barre de navigation avec le lien des produits-->
+        <nav class="row text-white">
+            <div class="col-10">
+                <ul class="list-inline d-flex">
+                    <li class="bg-warning shadow-sm pl-2 pr-2 mb-5 rounded"><a href="../index.html" class="text-decoration-none text-white font-weight-bold">Produits</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main id="main" class="text-white">
+        <!-- Section qui s'affichera si le panier est vide -->
+        <Section id="vide"></section>
+        <!-- Section qui affiche l'image, le nom et le prix de chaque produit ajouté au panier -->
+        <section class="row ml-3 mb-5">
+            <div id="resume" class="row col-9"></div>
+        </section>
+        <!-- Section qui affiche le prix total du panier -->
+        <section id="totalPrice" class="h2 font-weight-bold mt-3 ml-3">
+        </section>
+        <!-- Section qui affiche le formulaire pour valider une commande -->
+        <section id="formulaire">
+            <form class="col-6">
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="inputPrenom">Prénom</label>
+                        <input type="text" class="form-control" placeholder="prenom" id="inputPrenom">
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="inputNom">Nom</label>
+                        <input type="text" class="form-control" id="inputNom" placeholder="Nom">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAdresse">Adresse</label>
+                    <input type="text" class="form-control" id="inputAdresse" placeholder="Votre adresse">
+                    <div class="form-group">
+                        <label for="inputVille">Ville</label>
+                        <input type="text" class="form-control" id="inputVille" placeholder="Votre ville">
+                    </div>
+                </div>
+                <div id="mail" class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="exemple@mail.com">
+                </div>
+                <!-- Boutton d'envoi du formulaire -->
+                <button id="envoyer" type="button" class="btn btn-primary">COMMANDER</button>
+            </form>
+        </section>
+    </main>
+</body>
+<!-- Fichie Js -->
+<script type="text/javascript" src="../javascript/panier2.js"></script>
+
+</html>
