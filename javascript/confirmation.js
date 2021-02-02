@@ -8,6 +8,3 @@ numId.innerHTML = "<span class='font-weight-bold h5'>"+numeroIdentifiant+"</span
 
 localStorage.clear();
 
-/*Les promesses 
-verifier ligne plan test */
-

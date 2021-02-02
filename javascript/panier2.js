@@ -1,7 +1,6 @@
-const request = new XMLHttpRequest();
-var localPanier = localStorage.getItem("panier");
-var total = 0;
-var formulaire = document.querySelector("#formulaire");
+let localPanier = localStorage.getItem("panier");
+let total = 0;
+const formulaire = document.querySelector("#formulaire");
 localPanier = JSON.parse(localPanier);
 
 /* Fonction pour la récupération des éléments nécessaires à l'affichage des éléments du panier */
@@ -11,17 +10,14 @@ function infos(panier) {
     let totalPrice = document.querySelector("#totalPrice");
 
     for (i = panier.length - 1; i >= 0; i--) {
-        let request2 = new XMLHttpRequest();
-        request2.onreadystatechange = function() {
-            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-                var response = JSON.parse(this.responseText);
+        fetch("http://localhost:3000/api/cameras/" + panier[i])
+        .then(response => response.json())
+        .then(response => {
                 resume.innerHTML += "<div><img src='" + response.imageUrl + "' class='img-fluid mb-3'/></div>" + "<div class='text-center h3'>" + response.name + "</br><span class='text-danger font-weight-bold'>" + new Intl.NumberFormat("fr-FR", {style: "currency", currency : "EUR"}).format(response.price/100) + "</span></div>";
                 total += response.price/100;
                 totalPrice.innerHTML = "Prix total : <span class='text-danger'>" + new Intl.NumberFormat("fr-FR", {style: "currency", currency : "EUR"}).format(total) + "</span>";
-            }
-        }
-        request2.open("GET", "http://localhost:3000/api/cameras/" + panier[i]);
-        request2.send();
+            })
+        .catch(error => console.error("error"))
     }
 };
 
@@ -85,23 +81,23 @@ function post(formulaire) {
         products
     };
 
-    request.open("POST", "http://localhost:3000/api/cameras/order");
-    request.setRequestHeader("Content-Type", "application/json");
-    request.send(JSON.stringify(objectToSend));
-
-    request.onreadystatechange = function() {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
-            var response = JSON.parse(this.responseText);
-            let numId = response.orderId;
+    const option = {
+                    method: "POST",
+                    body: JSON.stringify(objectToSend),
+                    headers: {"Content-Type": "application/json"}
+                }
+    fetch("http://localhost:3000/api/cameras/order", option)
+    .then(response => response.json())
+    .then(response => {
+        let numId = response.orderId;
             
             localStorage.setItem("numIdentifiant", numId);
             localStorage.setItem("finalPrice", total);
 
             window.open("Confirmation.html", "Confirmation");
             window.location.href = "../index.html";
-        }
-    }
-
+    })
+    .catch(error => console.error("error"))
 }
 
 /* Fonction de vérification des valeurs du formulaire par rapport au type et au regex */
@@ -120,5 +116,5 @@ function verificationInput() {
 }
 
 /* Fonction de l'évènement Click */
-var envoyer = document.getElementById("envoyer").value;
+let envoyer = document.getElementById("envoyer").value;
 document.getElementById("envoyer").addEventListener("click", verificationInput);
