@@ -95,7 +95,6 @@ function post(formulaire) {
             localStorage.setItem("finalPrice", total);
 
             window.open("Confirmation.html", "Confirmation");
-            window.location.href = "../index.html";
     })
     .catch(error => console.error("error"))
 }
